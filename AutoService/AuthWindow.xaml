@@ -1,0 +1,24 @@
+﻿<Window x:Class="AutoService.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoService"
+        mc:Ignorable="d"
+        Title="AuthWindow" Height="450" Width="800">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="#FFDCE62E" Offset="0.162"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Введите код доступа:"/>
+        <PasswordBox Name="PwdCode" Grid.Row="1" Margin="0,5,0,0"/>
+        <Button Content="Войти" Grid.Row="2" Margin="0,10,0,0" Click="Button_Click" Width="80" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

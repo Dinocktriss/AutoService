@@ -1,0 +1,70 @@
+﻿<Window x:Class="AutoService.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:local="clr-namespace:AutoService"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Подай на 16" Height="600" Width="800">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="#FFECF903" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="34"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Menu VerticalAlignment="Center" Height="18">
+            <MenuItem Header="Отладка">
+                <MenuItem Header="Окно авторизации" Click="OpenAuthWindow_Click"/>
+                <MenuItem Header="Редактирование услуги" Click="OpenServiceEditWindow_Click"/>
+                <MenuItem Header="Запись на услугу" Click="OpenAppointmentWindow_Click"/>
+                <MenuItem Header="Ближайшие записи" Click="OpenUpcomingAppointmentsWindow_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <StackPanel Orientation="Horizontal" Margin="10,0,10,10" Grid.Row="1">
+            <Button Name="BtnAdmin" Content="Режим администратора" Click="BtnAdmin_Click" Margin="0,0,10,0"/>
+            <ComboBox Name="CmbDiscountFilter" Width="150" SelectionChanged="CmbDiscountFilter_SelectionChanged">
+                <ComboBoxItem Content="Все" IsSelected="True"/>
+                <ComboBoxItem Content="От 0% до 5%"/>
+                <ComboBoxItem Content="От 5% до 15%"/>
+                <ComboBoxItem Content="От 15% до 30%"/>
+                <ComboBoxItem Content="От 30% до 70%"/>
+                <ComboBoxItem Content="От 70% до 100%"/>
+            </ComboBox>
+            <ComboBox Name="CmbSort" Width="150" SelectionChanged="CmbSort_SelectionChanged" Margin="10,0,0,0">
+                <ComboBoxItem Content="Стоимость по возрастанию" IsSelected="True"/>
+                <ComboBoxItem Content="Стоимость по убыванию"/>
+            </ComboBox>
+            <TextBox Name="TxtSearch" Width="200" Margin="10,0,0,0" TextChanged="TxtSearch_TextChanged" Text="Поиск..."/>
+        </StackPanel>
+
+        <ListView Name="LvServices" Grid.Row="2" Margin="10,10,10,10" SelectionChanged="LvServices_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{Binding DiscountBackground}" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding MainImagePath}" Width="100" Height="100" Margin="5"/>
+                            <StackPanel Margin="5">
+                                <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxWidth="400"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <TextBlock Text="Цена: "/>
+                                    <TextBlock Text="{Binding OriginalCost}" TextDecorations="Strikethrough" Visibility="{Binding HasDiscount, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    <TextBlock Text="{Binding FinalCost}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <TextBlock Text="Длительность: {Binding DurationInMinutes} минут"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock Name="TxtCount" Grid.Row="3" HorizontalAlignment="Left" Margin="790,10,0,10" Width="0"/>
+    </Grid>
+</Window>
